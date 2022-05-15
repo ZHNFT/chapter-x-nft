@@ -1,0 +1,1 @@
+pub const STAKE_PERIOD_IN_DAYS: u64= 20;
