@@ -1,4 +1,5 @@
 use std::io::Write;
+use std::ops::Sub;
 use spl_token;
 use spl_associated_token_account;
 use anchor_lang::prelude::*;
@@ -53,7 +54,7 @@ pub struct UnstakeArgs {
 }
 
 pub fn unstake(ctx: Context<UnstakeContext>, args: UnstakeArgs) -> Result<()> {
-    let clock = Clock::get().unwrap().unix_timestamp;
+    let clock = Clock::get().unwrap().unix_timestamp as f64;
     let owner = &ctx.accounts.owner;
     let owner_token_account = &ctx.accounts.owner_token_account;
     let book_token_account = &ctx.accounts.book_token_account;
@@ -61,11 +62,9 @@ pub fn unstake(ctx: Context<UnstakeContext>, args: UnstakeArgs) -> Result<()> {
     let book = &mut ctx.accounts.book;
     let mint = &ctx.accounts.mint;
 
-    let days = clock.checked_sub(book.current_staking_start as i64).ok_or(Errors::NumericalOverflow)?;
-    if days > STAKE_PERIOD_IN_DAYS as i64 {
+    let days: f64 = clock.sub(book.current_staking_start as f64);
+    if days > STAKE_PERIOD_IN_DAYS {
         book.level += 1;
-        // upgrade NFT
-        // https://github.com/metaplex-foundation/metaplex-program-library/blob/ed7c5c0202088fd60e43a532a2a73cb98eea5c58/token-metadata/program/src/instruction.rs#L524
     }
 
     let book_token_account_seeds = [
