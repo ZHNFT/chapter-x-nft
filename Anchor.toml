@@ -1,7 +1,7 @@
 [features]
 seeds = false
 [programs.localnet]
-chapter_x_nft = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+chapter_x_nft = "3JYJq2FJqK2sR1ySqYVchE3dyYwdaspPEmWu83rVkhUi"
 
 [registry]
 url = "https://anchor.projectserum.com"
