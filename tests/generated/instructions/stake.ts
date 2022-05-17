@@ -135,7 +135,7 @@ export function createStakeInstruction(
 
   const ix = new web3.TransactionInstruction({
     programId: new web3.PublicKey(
-      'Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS'
+      '3JYJq2FJqK2sR1ySqYVchE3dyYwdaspPEmWu83rVkhUi'
     ),
     keys,
     data,

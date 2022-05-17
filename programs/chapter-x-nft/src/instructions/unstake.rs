@@ -12,7 +12,9 @@ use crate::states::book::Book;
 use crate::constants::sizes::BOOK_SIZE;
 use crate::constants::prefixes::BOOK_PREFIX;
 use crate::constants::prefixes::BOOK_VAULT_PREFIX;
+use crate::constants::prefixes::CONFIG_PREFIX;
 use crate::error_codes::errors::Errors;
+use crate::states::books_config::BooksConfig;
 use crate::utils::assert::assert_is_ata;
 
 #[derive(Accounts)]
@@ -22,15 +24,20 @@ pub struct UnstakeContext<'info> {
     pub owner: Signer<'info>,
     #[account(
     mut,
-    seeds=[BOOK_PREFIX.as_bytes(), &mint.key().to_bytes(), &owner.key().to_bytes()],
+    seeds=[BOOK_PREFIX.as_bytes(), &mint.key().to_bytes()],
     bump=args.book_nonce
     )]
     pub book: Account<'info, Book>,
     #[account(
+    seeds=[CONFIG_PREFIX.as_bytes()],
+    bump=args.config_nonce
+    )]
+    pub config: Account<'info, BooksConfig>,
+    #[account(
     mut,
     token::mint = mint,
     token::authority = book_token_account,
-    seeds=[BOOK_VAULT_PREFIX.as_bytes(), &mint.key().to_bytes() , &owner.key().to_bytes()],
+    seeds=[BOOK_VAULT_PREFIX.as_bytes(), &mint.key().to_bytes()],
     bump=args.book_token_account_nonce
     )]
     pub book_token_account: Account<'info, TokenAccount>,
@@ -50,7 +57,8 @@ pub struct UnstakeContext<'info> {
 #[derive(AnchorSerialize, AnchorDeserialize)]
 pub struct UnstakeArgs {
     book_nonce: u8,
-    book_token_account_nonce: u8
+    book_token_account_nonce: u8,
+    config_nonce: u8
 }
 
 pub fn unstake(ctx: Context<UnstakeContext>, args: UnstakeArgs) -> Result<()> {
@@ -61,9 +69,10 @@ pub fn unstake(ctx: Context<UnstakeContext>, args: UnstakeArgs) -> Result<()> {
     let token_program = &ctx.accounts.token_program;
     let book = &mut ctx.accounts.book;
     let mint = &ctx.accounts.mint;
+    let config = &ctx.accounts.config;
 
     let days: f64 = clock.sub(book.current_staking_start as f64);
-    if days > STAKE_PERIOD_IN_DAYS {
+    if days > config.stake_period_in_secs as f64 {
         book.level += 1;
     }
 

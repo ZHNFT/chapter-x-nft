@@ -1,0 +1,31 @@
+{
+  "name": "One",
+  "symbol": "TEST",
+  "description": "Two creators",
+  "seller_fee_basis_points": 100,
+  "external_url": "",
+  "edition": "",
+  "background_color": "000000",
+  "attributes": [
+    {
+      "trait_type": "Creators",
+      "value": "Two"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "creators": [
+      {
+        "address": "PanbgtcTiZ2PveV96t2FHSffiLHXXjMuhvoabUUKKm8",
+        "share": 100
+      }
+    ],
+    "files": [
+      {
+        "uri": "https://www.arweave.net/asDrJFykiui-kpJ-B3KhtV5fgA30hXB_5Q4yHqVmrOQ?ext=png",
+        "file_type": "image/png"
+      }
+    ]
+  },
+  "image": "https://www.arweave.net/asDrJFykiui-kpJ-B3KhtV5fgA30hXB_5Q4yHqVmrOQ?ext=png"
+}

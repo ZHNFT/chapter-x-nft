@@ -39,6 +39,7 @@ const unstakeStruct = new beet.BeetArgsStruct<
  *
  * @property [_writable_, **signer**] owner
  * @property [_writable_] book
+ * @property [] config
  * @property [_writable_] bookTokenAccount
  * @property [] mint
  * @property [_writable_] ownerTokenAccount
@@ -50,6 +51,7 @@ const unstakeStruct = new beet.BeetArgsStruct<
 export type UnstakeInstructionAccounts = {
   owner: web3.PublicKey
   book: web3.PublicKey
+  config: web3.PublicKey
   bookTokenAccount: web3.PublicKey
   mint: web3.PublicKey
   ownerTokenAccount: web3.PublicKey
@@ -75,6 +77,7 @@ export function createUnstakeInstruction(
   const {
     owner,
     book,
+    config,
     bookTokenAccount,
     mint,
     ownerTokenAccount,
@@ -94,6 +97,11 @@ export function createUnstakeInstruction(
     {
       pubkey: book,
       isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: config,
+      isWritable: false,
       isSigner: false,
     },
     {
@@ -135,7 +143,7 @@ export function createUnstakeInstruction(
 
   const ix = new web3.TransactionInstruction({
     programId: new web3.PublicKey(
-      'Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS'
+      '3JYJq2FJqK2sR1ySqYVchE3dyYwdaspPEmWu83rVkhUi'
     ),
     keys,
     data,

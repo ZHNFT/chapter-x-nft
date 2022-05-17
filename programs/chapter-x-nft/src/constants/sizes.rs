@@ -9,3 +9,9 @@ pub const BOOK_SIZE: usize = PADDING +
     8 + /* current_staking_start */
     8 /* level */
 ;
+
+
+pub const CONFIG_SIZE: usize = PADDING + PADDING +
+    8 + /* discriminator */
+    std::mem::size_of::<Pubkey>() /* owner */
+;

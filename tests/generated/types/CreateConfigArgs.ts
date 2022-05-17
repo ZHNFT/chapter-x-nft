@@ -6,21 +6,15 @@
  */
 
 import * as beet from '@metaplex-foundation/beet'
-export type UnstakeArgs = {
-  bookNonce: number
-  bookTokenAccountNonce: number
-  configNonce: number
+export type CreateConfigArgs = {
+  stakePeriodInSecs: beet.bignum
 }
 
 /**
  * @category userTypes
  * @category generated
  */
-export const unstakeArgsBeet = new beet.BeetArgsStruct<UnstakeArgs>(
-  [
-    ['bookNonce', beet.u8],
-    ['bookTokenAccountNonce', beet.u8],
-    ['configNonce', beet.u8],
-  ],
-  'UnstakeArgs'
+export const createConfigArgsBeet = new beet.BeetArgsStruct<CreateConfigArgs>(
+  [['stakePeriodInSecs', beet.u64]],
+  'CreateConfigArgs'
 )

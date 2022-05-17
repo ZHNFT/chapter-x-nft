@@ -1,5 +1,5 @@
 const PROGRAM_NAME = "chapter_x_nft";
-const PROGRAM_ID = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS";
+const PROGRAM_ID = "3JYJq2FJqK2sR1ySqYVchE3dyYwdaspPEmWu83rVkhUi";
 
 const path = require("path");
 const programDir = path.join(__dirname, "programs", "chapter-x-nft");

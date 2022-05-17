@@ -19,7 +19,7 @@ pub struct StakeContext<'info> {
     pub owner: Signer<'info>,
     #[account(
     init_if_needed,
-    seeds=[BOOK_PREFIX.as_bytes(), &mint.key().to_bytes(), &owner.key().to_bytes()],
+    seeds=[BOOK_PREFIX.as_bytes(), &mint.key().to_bytes()],
     payer=owner,
     space=BOOK_SIZE,
     bump
@@ -29,7 +29,7 @@ pub struct StakeContext<'info> {
     init_if_needed,
     token::mint = mint,
     token::authority = book_token_account,
-    seeds=[BOOK_VAULT_PREFIX.as_bytes(), &mint.key().to_bytes() , &owner.key().to_bytes()],
+    seeds=[BOOK_VAULT_PREFIX.as_bytes(), &mint.key().to_bytes()],
     payer=owner,
     bump
     )]
