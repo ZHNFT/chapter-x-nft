@@ -31,7 +31,7 @@ export const amman = Amman.instance({
 describe("chapter-x-nft", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
-  const connection = new Connection(LOCALHOST);
+  const connection = new Connection(LOCALHOST, "confirmed");
   const AIRDROP_AMOUNT = 5_000_000_000;
   const program = anchor.workspace.ChapterXNft as Program<ChapterXNft>;
   const metaplex = new Metaplex(connection);
@@ -230,7 +230,8 @@ describe("chapter-x-nft", () => {
     const txn = await connection.getParsedTransaction(sig.Signature, "confirmed");
     assert(sig.SignatureResult.err === null, txn.meta.logMessages.join("\n"));
 
-    console.log(`unstake after ${txn.meta.logMessages.join("\n")}`);
+    await sleep(3000);
+
     const bookAccount = await Book.fromAccountAddress(connection, book);
     assert(bookAccount.pretty().level === 1, `Book level unexpected ${book.toBase58()}\n${JSON.stringify(bookAccount.pretty(), null, 2)}`);
 
