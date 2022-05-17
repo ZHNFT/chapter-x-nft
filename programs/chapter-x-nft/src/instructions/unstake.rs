@@ -73,13 +73,15 @@ pub fn unstake(ctx: Context<UnstakeContext>, args: UnstakeArgs) -> Result<()> {
 
     let days: f64 = clock.sub(book.current_staking_start as f64);
     if days > config.stake_period_in_secs as f64 {
+        msg!("Congratulations, you gained a level");
         book.level += 1;
+    } else {
+        msg!("Not eligible for a new level yet");
     }
 
     let book_token_account_seeds = [
         BOOK_VAULT_PREFIX.as_bytes(),
         &mint.key().to_bytes(),
-        &owner.key().to_bytes(),
         &[args.book_token_account_nonce]
     ];
 
@@ -88,7 +90,7 @@ pub fn unstake(ctx: Context<UnstakeContext>, args: UnstakeArgs) -> Result<()> {
             &token_program.key(),
             &book_token_account.key(),
             &owner_token_account.key(),
-            &owner.key(),
+            &book_token_account.key(),
             &[],
             1,
         )?,
