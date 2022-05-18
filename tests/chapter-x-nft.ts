@@ -326,7 +326,6 @@ describe("chapter-x-nft", () => {
     const instruction3 = createUnstakeInstruction(accounts3, args3);
     const sig3 = await processTransaction([instruction3], connection, owner);
     const txn3 = await connection.getParsedTransaction(sig3.Signature, "confirmed");
-    console.log(`Unstaking message: ${txn3.meta.logMessages.join("\n")}`);
     assert(txn3.meta.logMessages.join("\n").includes("Staking is locked"));
     const bookAccount3 = await Book.fromAccountAddress(connection, book);
     assert(bookAccount3.pretty().level === 1, `Book level unexpected ${book.toBase58()}\n${JSON.stringify(bookAccount3.pretty(), null, 2)}`);
