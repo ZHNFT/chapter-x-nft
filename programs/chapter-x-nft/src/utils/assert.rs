@@ -1,3 +1,5 @@
+#![allow(dead_code, unused)]
+
 use anchor_lang::prelude::*;
 use spl_associated_token_account::get_associated_token_address;
 use anchor_lang::solana_program::program_pack::{IsInitialized, Pack};

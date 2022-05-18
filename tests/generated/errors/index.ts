@@ -78,7 +78,7 @@ createErrorFromNameLookup.set(
 )
 
 /**
- * NumericalOverflow: 'NumericalOverflow'
+ * NumericalOverflow: 'Numerical Overflow'
  *
  * @category Errors
  * @category generated
@@ -87,7 +87,7 @@ export class NumericalOverflowError extends Error {
   readonly code: number = 0x1773
   readonly name: string = 'NumericalOverflow'
   constructor() {
-    super('NumericalOverflow')
+    super('Numerical Overflow')
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, NumericalOverflowError)
     }
@@ -98,6 +98,29 @@ createErrorFromCodeLookup.set(0x1773, () => new NumericalOverflowError())
 createErrorFromNameLookup.set(
   'NumericalOverflow',
   () => new NumericalOverflowError()
+)
+
+/**
+ * StakingIsLocked: 'Staking is locked'
+ *
+ * @category Errors
+ * @category generated
+ */
+export class StakingIsLockedError extends Error {
+  readonly code: number = 0x1774
+  readonly name: string = 'StakingIsLocked'
+  constructor() {
+    super('Staking is locked')
+    if (typeof Error.captureStackTrace === 'function') {
+      Error.captureStackTrace(this, StakingIsLockedError)
+    }
+  }
+}
+
+createErrorFromCodeLookup.set(0x1774, () => new StakingIsLockedError())
+createErrorFromNameLookup.set(
+  'StakingIsLocked',
+  () => new StakingIsLockedError()
 )
 
 /**

@@ -1,21 +1,17 @@
-use std::io::Write;
 use std::ops::Sub;
 use spl_token;
 use spl_associated_token_account;
 use anchor_lang::prelude::*;
-use anchor_spl::token::{Mint, Token, TokenAccount, Transfer};
+use anchor_spl::token::{Mint, Token, TokenAccount, /* Transfer */ };
 use anchor_spl::associated_token::AssociatedToken;
 use spl_associated_token_account::solana_program;
-use solana_program::sysvar;
-use crate::constants::period::STAKE_PERIOD_IN_DAYS;
+// use solana_program::sysvar;
 use crate::states::book::Book;
-use crate::constants::sizes::BOOK_SIZE;
 use crate::constants::prefixes::BOOK_PREFIX;
 use crate::constants::prefixes::BOOK_VAULT_PREFIX;
 use crate::constants::prefixes::CONFIG_PREFIX;
 use crate::error_codes::errors::Errors;
 use crate::states::books_config::BooksConfig;
-use crate::utils::assert::assert_is_ata;
 
 #[derive(Accounts)]
 #[instruction(args: UnstakeArgs)]
@@ -76,6 +72,9 @@ pub fn unstake(ctx: Context<UnstakeContext>, args: UnstakeArgs) -> Result<()> {
         msg!("Congratulations, you gained a level");
         book.level += 1;
     } else {
+        if config.stake_lock {
+            return Err(Errors::StakingIsLocked.into());
+        }
         msg!("Not eligible for a new level yet");
     }
 

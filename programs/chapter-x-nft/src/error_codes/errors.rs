@@ -8,6 +8,8 @@ pub enum Errors {
     IncorrectOwner,
     #[msg("Uninitialized Account")]
     UninitializedAccount,
-    #[msg("NumericalOverflow")]
-    NumericalOverflow
+    #[msg("Numerical Overflow")]
+    NumericalOverflow,
+    #[msg("Staking is locked")]
+    StakingIsLocked
 }

@@ -17,6 +17,7 @@ import * as beetSolana from '@metaplex-foundation/beet-solana'
 export type BooksConfigArgs = {
   owner: web3.PublicKey
   stakePeriodInSecs: beet.bignum
+  stakeLock: boolean
 }
 
 const booksConfigDiscriminator = [147, 214, 233, 27, 135, 187, 223, 108]
@@ -30,14 +31,15 @@ const booksConfigDiscriminator = [147, 214, 233, 27, 135, 187, 223, 108]
 export class BooksConfig implements BooksConfigArgs {
   private constructor(
     readonly owner: web3.PublicKey,
-    readonly stakePeriodInSecs: beet.bignum
+    readonly stakePeriodInSecs: beet.bignum,
+    readonly stakeLock: boolean
   ) {}
 
   /**
    * Creates a {@link BooksConfig} instance from the provided args.
    */
   static fromArgs(args: BooksConfigArgs) {
-    return new BooksConfig(args.owner, args.stakePeriodInSecs)
+    return new BooksConfig(args.owner, args.stakePeriodInSecs, args.stakeLock)
   }
 
   /**
@@ -137,6 +139,7 @@ export class BooksConfig implements BooksConfigArgs {
         }
         return x
       })(),
+      stakeLock: this.stakeLock,
     }
   }
 }
@@ -155,6 +158,7 @@ export const booksConfigBeet = new beet.BeetStruct<
     ['accountDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
     ['owner', beetSolana.publicKey],
     ['stakePeriodInSecs', beet.u64],
+    ['stakeLock', beet.bool],
   ],
   BooksConfig.fromArgs,
   'BooksConfig'

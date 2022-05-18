@@ -1,16 +1,14 @@
-use std::io::Write;
 use spl_token;
 use spl_associated_token_account;
 use anchor_lang::prelude::*;
-use anchor_spl::token::{Mint, Token, TokenAccount, Transfer};
+use anchor_spl::token::{Mint, Token, TokenAccount, /* Transfer */ };
 use anchor_spl::associated_token::AssociatedToken;
 use spl_associated_token_account::solana_program;
-use solana_program::sysvar;
+// use solana_program::sysvar;
 use crate::states::book::Book;
 use crate::constants::sizes::BOOK_SIZE;
 use crate::constants::prefixes::BOOK_PREFIX;
 use crate::constants::prefixes::BOOK_VAULT_PREFIX;
-use crate::utils::assert::assert_is_ata;
 
 #[derive(Accounts)]
 #[instruction(args: StakeArgs)]
@@ -53,7 +51,7 @@ pub struct StakeArgs {
     book_token_account_nonce: u8
 }
 
-pub fn stake(ctx: Context<StakeContext>, args: StakeArgs) -> Result<()> {
+pub fn stake(ctx: Context<StakeContext>, _args: StakeArgs) -> Result<()> {
     let clock = Clock::get().unwrap().unix_timestamp;
     let owner = &ctx.accounts.owner;
     let owner_token_account = &ctx.accounts.owner_token_account;

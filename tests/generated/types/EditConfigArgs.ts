@@ -6,19 +6,21 @@
  */
 
 import * as beet from '@metaplex-foundation/beet'
-export type CreateConfigArgs = {
+export type EditConfigArgs = {
   stakePeriodInSecs: beet.bignum
   stakeLock: boolean
+  bookConfigNone: number
 }
 
 /**
  * @category userTypes
  * @category generated
  */
-export const createConfigArgsBeet = new beet.BeetArgsStruct<CreateConfigArgs>(
+export const editConfigArgsBeet = new beet.BeetArgsStruct<EditConfigArgs>(
   [
     ['stakePeriodInSecs', beet.u64],
     ['stakeLock', beet.bool],
+    ['bookConfigNone', beet.u8],
   ],
-  'CreateConfigArgs'
+  'EditConfigArgs'
 )

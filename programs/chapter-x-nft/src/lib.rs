@@ -17,6 +17,10 @@ pub mod chapter_x_nft {
         create_config::create_config(ctx, args)
     }
 
+    pub fn edit_config(ctx: Context<EditConfigContext>, args: EditConfigArgs) -> Result<()> {
+        edit_config::edit_config(ctx, args)
+    }
+
     pub fn stake(ctx: Context<StakeContext>, args: StakeArgs) -> Result<()> {
         stake::stake(ctx, args)
     }
